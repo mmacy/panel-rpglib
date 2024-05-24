@@ -4,7 +4,7 @@
 Arbrynnica is a Python-based turn-based RPG engine designed to replicate the gameplay style of classic RPGs like Bard's Tale and the Gold Box series while faithfully implementing the rules from the D&D Basic Set Rulebook. This engine provides a flexible and modular package for developers to create their own RPGs, whether GUI- or text-based. It is designed for ease of customization and extension, allowing developers to build on a solid foundation.
 
 > [!WARNING]
-> Nearly all the code and documentation in this repo (including this README, but not this note) has likely been or will be created by an LLM guided with the ["panel of experts" prompting strategy](https://sourcery.ai/blog/panel-of-experts/). Take it with an LLM-sized grain of salt and caveat emptor and all that. :slight_smile: *--Marsh*
+> Nearly all the code and documentation in this repo (including this README, but not this note) has likely been or will be created by an LLM guided with the ["panel of experts" prompting strategy](https://sourcery.ai/blog/panel-of-experts/). Take it with an LLM-sized grain of salt and caveat emptor and all that. 🙂 *—Marsh*
 
 ## About the project
 
