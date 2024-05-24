@@ -401,5 +401,3 @@ We will use Python 3.11 for this project to leverage the latest features and imp
 ## Sample project
 
 - **Sample game**: Include a sample project or demo game that showcases the engine's capabilities. This will serve as a practical reference for developers and help them get started quickly.
-
-By focusing on these simplified yet essential components, we can create a solid foundation for our turn-based RPG engine while ensuring it remains faithful to the D&D Basic ruleset. This approach will allow us to deliver a robust, flexible, and user-friendly package for developers.
