@@ -9,25 +9,6 @@
    - Implement `DiceRoller` class with methods for various dice rolls
    - Unit tests for `DiceRoller`
 
-   ```python
-   import random
-   from typing import List
-
-   class DiceRoller:
-       @staticmethod
-       def roll_dice(num_dice: int, num_sides: int) -> List[int]:
-           return [random.randint(1, num_sides) for _ in range(num_dice)]
-
-       @staticmethod
-       def roll_3d6() -> int:
-           return sum(DiceRoller.roll_dice(3, 6))
-
-       @staticmethod
-       def roll_4d6_drop_lowest() -> int:
-           rolls = DiceRoller.roll_dice(4, 6)
-           return sum(sorted(rolls)[1:])
-   ```
-
 2. **Character module**
 
    - Implement `Character` and `CharacterFactory` classes
@@ -35,62 +16,10 @@
    - Character ability score rolling methods (3d6 and 4d6-drop-lowest)
    - Unit tests for `Character` and `CharacterFactory`
 
-   ```python
-   from typing import Dict, List, Optional
-
-   class Character:
-       def __init__(self, name: str, char_class: str, abilities: Dict[str, int], alignment: str) -> None:
-           self.name = name
-           self.char_class = char_class
-           self.abilities = abilities
-           self.alignment = alignment
-           self.hit_points = self.calculate_hit_points()
-           self.equipment: List[Item] = []
-
-       def calculate_hit_points(self) -> int:
-           # Logic to calculate hit points based on class and Constitution
-           pass
-
-       def roll_initiative(self) -> int:
-           # Logic to roll initiative
-           return DiceRoller.roll_dice(1, 20)[0] + self.abilities.get('Dexterity', 0)
-
-   class CharacterFactory:
-       @staticmethod
-       def create_character(name: str, char_class: str, abilities: Dict[str, int], alignment: str) -> Character:
-           return Character(name, char_class, abilities, alignment)
-   ```
-
 3. **Game save/load**
 
    - Implement `GameState` class with save and load functionality
    - Unit tests for `GameState`
-
-   ```python
-   import json
-
-   class GameState:
-       def __init__(self, characters: List[Character], adventure: Adventure, journal: Journal) -> None:
-           self.characters = characters
-           self.adventure = adventure
-           self.journal = journal
-
-       def save_game(self, file_path: str) -> None:
-           state = {
-               "characters": [char.__dict__ for char in self.characters],
-               "adventure": self.adventure.__dict__,
-               "journal": self.journal.__dict__
-           }
-           with open(file_path, 'w') as f:
-               json.dump(state, f)
-
-       def load_game(self, file_path: str) -> None:
-           with open(file_path, 'r') as f:
-               state = json.load(f)
-           self.characters = [Character(**char_data) for char_data in state['characters']]
-           self.adventure = Adventure(**state['adventure']]
-           self.journal = Journal(**state['journal']]
-   ```
 
 ### Phase 2: Core systems
 
