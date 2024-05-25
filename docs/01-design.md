@@ -324,25 +324,6 @@ This document outlines the design for a Python-based turn-based RPG engine. The 
 
 - **Dice roller class**: Implement a utility class for rolling dice with various configurations, including 3d6 and 4d6-drop-lowest.
 
-   ```python
-   import random
-   from typing import List
-
-   class DiceRoller:
-       @staticmethod
-       def roll_dice(num_dice: int, num_sides: int) -> List[int]:
-           return [random.randint(1, num_sides) for _ in range(num_dice)]
-
-       @staticmethod
-       def roll_3d6() -> int:
-           return sum(DiceRoller.roll_dice(3, 6))
-
-       @staticmethod
-       def roll_4d6_drop_lowest() -> int:
-           rolls = DiceRoller.roll_dice(4, 6)
-           return sum(sorted(rolls)[1:])
-   ```
-
 ### Event system
 
 #### Event handling
