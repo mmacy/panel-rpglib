@@ -1,5 +1,12 @@
-"""
-src/arbrynnica/character.py
+# src/arbrynnica/character.py
+"""This module defines the classes and functions related to character creation and management in the RPG.
+
+Typical usage example:
+
+  abilities = Abilities(15, 10, 10, 12, 14, 8)
+  alignment = Alignment("Lawful")
+  char_class = CharacterClass("Fighter", 10, ["strength", "constitution"], [], [], [])
+  character = Character("Arthas", char_class, abilities, alignment)
 """
 
 from typing import Dict, List, Optional
@@ -9,8 +16,7 @@ from arbrynnica.modifier import Modifier
 from arbrynnica.condition import Condition
 
 class CharacterClass:
-    """
-    Represents a character class in the RPG.
+    """Represents a character class in the RPG.
 
     Attributes:
         name (str): The name of the character class.
@@ -37,8 +43,7 @@ class CharacterClass:
         pass  # Implementation for class-specific bonuses
 
 class Abilities:
-    """
-    Represents a character's abilities.
+    """Represents a character's abilities.
 
     Attributes:
         strength (int): The strength ability score.
@@ -67,8 +72,7 @@ class Abilities:
         pass
 
 class Alignment:
-    """
-    Represents a character's alignment.
+    """Represents a character's alignment.
 
     Attributes:
         type (str): The alignment type. Options: 'Lawful', 'Neutral', 'Chaotic'.
@@ -77,8 +81,7 @@ class Alignment:
         self.type = type  # Options: 'Lawful', 'Neutral', 'Chaotic'
 
 class Character:
-    """
-    Represents a character in the RPG.
+    """Represents a character in the RPG.
 
     Attributes:
         name (str): The name of the character.
@@ -107,8 +110,7 @@ class Character:
         self.modifiers: List[Modifier] = []
 
     def calculate_hit_points(self) -> int:
-        """
-        Calculates the character's hit points based on class hit die, constitution modifier, and active modifiers.
+        """Calculates the character's hit points based on class hit die, constitution modifier, and active modifiers.
 
         Returns:
             int: The calculated hit points.
@@ -118,8 +120,7 @@ class Character:
         return base_hp + sum(mod.value for mod in active_modifiers if mod.name == 'hit_points')
 
     def roll_initiative(self) -> int:
-        """
-        Rolls for initiative based on the character's dexterity and active modifiers.
+        """Rolls for initiative based on the character's dexterity and active modifiers.
 
         Returns:
             int: The initiative roll result.
@@ -127,8 +128,7 @@ class Character:
         pass
 
     def get_ability_modifier(self, ability: str) -> int:
-        """
-        Gets the modifier for a specified ability.
+        """Gets the modifier for a specified ability.
 
         Args:
             ability (str): The ability name.
@@ -144,8 +144,7 @@ class Character:
 
     @staticmethod
     def apply_percentage_modifier(base_value: int, modifier_value: int) -> int:
-        """
-        Applies a percentage modifier to a base value.
+        """Applies a percentage modifier to a base value.
 
         Args:
             base_value (int): The base value.
@@ -162,8 +161,7 @@ class Character:
         self.char_class.level_up(self)
 
     def gain_experience(self, points: int) -> None:
-        """
-        Gains experience points and checks for level-up.
+        """Gains experience points and checks for level-up.
 
         Args:
             points (int): The experience points to gain.
@@ -173,8 +171,7 @@ class Character:
             pass  # Ensure multiple level-ups are handled
 
     def check_level_up(self) -> bool:
-        """
-        Checks if the character can level up.
+        """Checks if the character can level up.
 
         Returns:
             bool: True if the character levels up, otherwise False.
@@ -182,8 +179,7 @@ class Character:
         pass
 
     def equip_item(self, item: Item) -> None:
-        """
-        Equips an item and applies its modifiers.
+        """Equips an item and applies its modifiers.
 
         Args:
             item (Item): The item to equip.
@@ -193,8 +189,7 @@ class Character:
             self.apply_modifier(mod)
 
     def unequip_item(self, item: Item) -> None:
-        """
-        Unequips an item and removes its modifiers.
+        """Unequips an item and removes its modifiers.
 
         Args:
             item (Item): The item to unequip.
@@ -204,8 +199,7 @@ class Character:
             self.remove_modifier(mod)
 
     def use_item(self, item: Item) -> None:
-        """
-        Uses an item and applies its effects.
+        """Uses an item and applies its effects.
 
         Args:
             item (Item): The item to use.
@@ -213,8 +207,7 @@ class Character:
         item.use(self)
 
     def learn_spell(self, spell: Spell) -> None:
-        """
-        Learns a new spell.
+        """Learns a new spell.
 
         Args:
             spell (Spell): The spell to learn.
@@ -222,8 +215,7 @@ class Character:
         self.char_class.spells.append(spell)
 
     def cast_spell(self, spell: Spell, target: 'Character') -> None:
-        """
-        Casts a spell on a target character.
+        """Casts a spell on a target character.
 
         Args:
             spell (Spell): The spell to cast.
@@ -232,8 +224,7 @@ class Character:
         spell.cast(self, target)
 
     def apply_condition(self, condition: Condition) -> None:
-        """
-        Applies a condition to the character.
+        """Applies a condition to the character.
 
         Args:
             condition (Condition): The condition to apply.
@@ -244,8 +235,7 @@ class Character:
             condition.apply(self)
 
     def remove_condition(self, condition: Condition) -> None:
-        """
-        Removes a condition from the character.
+        """Removes a condition from the character.
 
         Args:
             condition (Condition): The condition to remove.
@@ -254,8 +244,7 @@ class Character:
         condition.remove(self)
 
     def apply_modifier(self, modifier: Modifier) -> None:
-        """
-        Applies a modifier to the character.
+        """Applies a modifier to the character.
 
         Args:
             modifier (Modifier): The modifier to apply.
@@ -265,8 +254,7 @@ class Character:
         self.update_attributes()
 
     def remove_modifier(self, modifier: Modifier) -> None:
-        """
-        Removes a modifier from the character.
+        """Removes a modifier from the character.
 
         Args:
             modifier (Modifier): The modifier to remove.
