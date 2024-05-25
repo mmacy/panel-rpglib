@@ -3,7 +3,7 @@
 import random
 from typing import Optional, Union
 
-class DiceRollConfig:
+class _DiceRollConfig:
     """Configuration class for dice rolling."""
     def __init__(self, num_dice: int, num_sides: int, drop_lowest: bool = False) -> None:
         self.num_dice = num_dice
@@ -27,9 +27,19 @@ class DiceRoller:
 
         Raises:
             ValueError: If num_dice or num_sides is less than 1, or if the notation is not supported.
+
+        Examples:
+            >>> DiceRoller.roll(3, 6)
+            10  # Example output, actual result will vary
+
+            >>> DiceRoller.roll('3d6')
+            12  # Example output, actual result will vary
+
+            >>> DiceRoller.roll('4d6', drop_lowest=True)
+            14  # Example output, actual result will vary
         """
         if isinstance(num_dice, str):
-            config = DiceRoller.parse_dice_notation(num_dice, drop_lowest)
+            config = DiceRoller._parse_dice_notation(num_dice, drop_lowest)
             return DiceRoller.roll(config.num_dice, config.num_sides, config.drop_lowest)
 
         if num_dice < 1 or num_sides is None or num_sides < 1:
@@ -41,7 +51,7 @@ class DiceRoller:
         return sum(rolls)
 
     @staticmethod
-    def parse_dice_notation(dice_notation: str, drop_lowest: bool = False) -> DiceRollConfig:
+    def _parse_dice_notation(dice_notation: str, drop_lowest: bool = False) -> _DiceRollConfig:
         """Parses a dice notation string and returns a configuration object.
 
         Args:
@@ -49,7 +59,7 @@ class DiceRoller:
             drop_lowest (bool): Whether to drop the lowest roll. Defaults to False.
 
         Returns:
-            DiceRollConfig: Configuration object based on the provided notation.
+            _DiceRollConfig: Configuration object based on the provided notation.
 
         Raises:
             ValueError: If the notation is not in the supported format.
@@ -59,4 +69,4 @@ class DiceRoller:
         except ValueError:
             raise ValueError("Unsupported dice notation format.")
 
-        return DiceRollConfig(num_dice=num_dice, num_sides=num_sides, drop_lowest=drop_lowest)
+        return _DiceRollConfig(num_dice=num_dice, num_sides=num_sides, drop_lowest=drop_lowest)

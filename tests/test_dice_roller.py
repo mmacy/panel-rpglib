@@ -21,24 +21,14 @@ def test_roll_with_notation():
     result_drop_lowest = DiceRoller.roll('4d6', drop_lowest=True)
     assert 3 <= result_drop_lowest <= 18
 
-def test_roll_3d6():
-    """Test rolling 3 six-sided dice and returning the sum."""
-    result = DiceRoller.roll('3d6')
-    assert 3 <= result <= 18
-
-def test_roll_4d6_drop_lowest():
-    """Test rolling 4 six-sided dice, dropping the lowest roll, and returning the sum of the remaining three."""
-    result = DiceRoller.roll('4d6', drop_lowest=True)
-    assert 3 <= result <= 18
-
 def test_parse_dice_notation():
     """Test parsing dice notation strings and rolling dice accordingly."""
-    config_3d6 = DiceRoller.parse_dice_notation('3d6')
+    config_3d6 = DiceRoller._parse_dice_notation('3d6')
     assert config_3d6.num_dice == 3
     assert config_3d6.num_sides == 6
     assert not config_3d6.drop_lowest
 
-    config_4d6_drop_lowest = DiceRoller.parse_dice_notation('4d6', drop_lowest=True)
+    config_4d6_drop_lowest = DiceRoller._parse_dice_notation('4d6', drop_lowest=True)
     assert config_4d6_drop_lowest.num_dice == 4
     assert config_4d6_drop_lowest.num_sides == 6
     assert config_4d6_drop_lowest.drop_lowest
@@ -57,10 +47,10 @@ def test_roll_invalid_input():
 def test_parse_dice_notation_invalid_input():
     """Test parsing invalid dice notation strings."""
     with pytest.raises(ValueError):
-        DiceRoller.parse_dice_notation('2d')
+        DiceRoller._parse_dice_notation('2d')
     with pytest.raises(ValueError):
-        DiceRoller.parse_dice_notation('d6')
+        DiceRoller._parse_dice_notation('d6')
     with pytest.raises(ValueError):
-        DiceRoller.parse_dice_notation('3d6 drop')
+        DiceRoller._parse_dice_notation('3d6 drop')
     with pytest.raises(ValueError):
-        DiceRoller.parse_dice_notation('3d6 keep highest')
+        DiceRoller._parse_dice_notation('3d6 keep highest')
