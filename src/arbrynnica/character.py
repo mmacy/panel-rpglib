@@ -32,10 +32,12 @@ class Abilities:
         self.constitution = constitution
         self.charisma = charisma
 
+    @staticmethod
     def roll_3d6() -> int:
         # Implementation for rolling 3d6
         pass
 
+    @staticmethod
     def roll_4d6_drop_lowest() -> int:
         # Implementation for rolling 4d6 and dropping the lowest
         pass
@@ -45,6 +47,22 @@ class Alignment:
         self.type = type  # Options: 'Lawful', 'Neutral', 'Chaotic'
 
 class Character:
+    """
+    Represents a character in the RPG.
+
+    Attributes:
+        name (str): The name of the character.
+        char_class (CharacterClass): The character's class.
+        abilities (Abilities): The character's abilities.
+        alignment (Alignment): The character's alignment.
+        hit_points (int): The character's hit points.
+        experience_points (int): The character's experience points.
+        level (int): The character's level.
+        inventory (Inventory): The character's inventory.
+        skills (List[str]): The character's skills.
+        conditions (List[Condition]): The conditions affecting the character.
+        modifiers (List[Modifier]): The modifiers affecting the character.
+    """
     def __init__(self, name: str, char_class: CharacterClass, abilities: Abilities, alignment: Alignment) -> None:
         self.name = name
         self.char_class = char_class
@@ -84,9 +102,10 @@ class Character:
 
     def gain_experience(self, points: int) -> None:
         self.experience_points += points
-        self.check_level_up()
+        while self.check_level_up():
+            pass  # Ensure multiple level-ups are handled
 
-    def check_level_up(self) -> None:
+    def check_level_up(self) -> bool:
         # Implementation for checking if character can level up
         pass
 
@@ -110,11 +129,13 @@ class Character:
         spell.cast(self, target)
 
     def apply_condition(self, condition: Condition) -> None:
-        self.conditions.append(condition)
-        condition.apply(self)
+        existing_conditions = [cond for cond in self.conditions if cond.name == condition.name]
+        if not existing_conditions:
+            self.conditions.append(condition)
+            condition.apply(self)
 
     def remove_condition(self, condition: Condition) -> None:
-        self.conditions.remove(condition)
+        self.conditions = [cond for cond in self.conditions if cond.name != condition.name]
         condition.remove(self)
 
     def apply_modifier(self, modifier: Modifier) -> None:
@@ -129,7 +150,8 @@ class Character:
 
     def update_attributes(self) -> None:
         # Recalculate attributes based on current modifiers
-        pass
+        self.hit_points = self.calculate_hit_points()
+        # Include logic for recalculating other attributes as needed
 
     def decrement_modifiers(self) -> None:
         for mod in self.modifiers:

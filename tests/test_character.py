@@ -64,6 +64,21 @@ def test_gain_experience_and_level_up():
     assert character.experience_points == 2000
     assert character.level == 2  # Assuming level up threshold is 2000 points
 
+def test_gain_experience_and_level_up_edge_cases():
+    """Test gaining experience and edge cases for leveling up."""
+    char_class = CharacterClass("Fighter", 10, ["strength", "constitution"], [], [], [])
+    abilities = Abilities(15, 10, 10, 12, 14, 8)
+    alignment = Alignment("Lawful")
+    character = Character("Arthas", char_class, abilities, alignment)
+
+    # Gain experience just below the threshold
+    character.gain_experience(1999)
+    assert character.level == 1
+
+    # Gain experience exactly at the threshold
+    character.gain_experience(1)
+    assert character.level == 2
+
 def test_apply_and_remove_conditions():
     """Test applying and removing conditions."""
     char_class = CharacterClass("Fighter", 10, ["strength", "constitution"], [], [], [])
@@ -77,5 +92,22 @@ def test_apply_and_remove_conditions():
     assert condition in character.conditions
 
     # Remove condition
+    character.remove_condition(condition)
+    assert condition not in character.conditions
+
+def test_apply_and_remove_conditions_edge_cases():
+    """Test applying and removing conditions, including stacking and removal."""
+    char_class = CharacterClass("Fighter", 10, ["strength", "constitution"], [], [], [])
+    abilities = Abilities(15, 10, 10, 12, 14, 8)
+    alignment = Alignment("Lawful")
+    character = Character("Arthas", char_class, abilities, alignment)
+
+    # Apply the same condition twice
+    condition = Condition("Poisoned", "Reduces health", 3)
+    character.apply_condition(condition)
+    character.apply_condition(condition)
+    assert len(character.conditions) == 1  # Should not stack identical conditions
+
+    # Remove the condition
     character.remove_condition(condition)
     assert condition not in character.conditions
