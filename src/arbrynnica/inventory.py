@@ -8,7 +8,7 @@ Typical usage example:
   inventory.add_item(item)
 """
 
-from typing import List
+from typing import List, Dict
 
 class Item:
     """Represents an item in the RPG.
@@ -66,3 +66,17 @@ class Inventory:
             int: The total value of all items.
         """
         return sum(item.value for item in self.items)
+
+    def get_summary_by_type(self) -> Dict[str, int]:
+        """Provides a summary of items in the inventory categorized by type.
+
+        Returns:
+            Dict[str, int]: A dictionary with item types as keys and counts as values.
+        """
+        summary = {}
+        for item in self.items:
+            if item.item_type in summary:
+                summary[item.item_type] += 1
+            else:
+                summary[item.item_type] = 1
+        return summary
