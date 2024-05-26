@@ -58,3 +58,11 @@ class Inventory:
             bool: True if the item exists in the inventory, otherwise False.
         """
         return item in self.items
+
+    def get_total_value(self) -> int:
+        """Calculates the total value of all items in the inventory.
+
+        Returns:
+            int: The total value of all items.
+        """
+        return sum(item.value for item in self.items)
