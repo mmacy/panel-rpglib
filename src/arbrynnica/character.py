@@ -9,7 +9,7 @@ Typical usage example:
   character = Character("Arthas", char_class, abilities, alignment)
 """
 
-from typing import Dict, List, Optional
+from typing import List
 from arbrynnica.inventory import Item, Inventory
 from arbrynnica.spell import Spell
 from arbrynnica.modifier import Modifier
@@ -21,15 +21,15 @@ class CharacterClass:
     Attributes:
         name (str): The name of the character class.
         hit_die (int): The hit die associated with the class.
-        abilities (List[str]): The abilities associated with the class.
+        prime_requisites (List[str]): The prime requisite abilities associated with the class.
         spells (List[Spell]): The spells available to the class.
         equipment (List[Item]): The equipment available to the class.
         skills (List[str]): The skills available to the class.
     """
-    def __init__(self, name: str, hit_die: int, abilities: List[str], spells: List[Spell], equipment: List[Item], skills: List[str]) -> None:
+    def __init__(self, name: str, hit_die: int, prime_requisites: List[str], spells: List[Spell], equipment: List[Item], skills: List[str]) -> None:
         self.name = name
         self.hit_die = hit_die
-        self.abilities = abilities
+        self.prime_requisites = prime_requisites
         self.spells = spells
         self.equipment = equipment
         self.skills = skills
@@ -101,13 +101,13 @@ class Character:
         self.char_class = char_class
         self.abilities = abilities
         self.alignment = alignment
+        self.modifiers: List[Modifier] = []
+        self.conditions: List[Condition] = []
         self.hit_points = self.calculate_hit_points()
         self.experience_points = 0
         self.level = 1
         self.inventory = Inventory()
         self.skills: List[str] = char_class.skills
-        self.conditions: List[Condition] = []
-        self.modifiers: List[Modifier] = []
 
     def calculate_hit_points(self) -> int:
         """Calculates the character's hit points based on class hit die, constitution modifier, and active modifiers.

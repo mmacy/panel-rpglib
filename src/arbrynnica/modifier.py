@@ -6,6 +6,7 @@ Typical usage example:
   modifier = Modifier("Strength", 2, "flat", "global")
 """
 
+
 class Modifier:
     """Represents a modifier in the RPG.
 
