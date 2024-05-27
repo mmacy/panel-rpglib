@@ -4,14 +4,48 @@ import random
 from typing import Optional, Union
 
 class _DiceRollConfig:
-    """Configuration class for dice rolling."""
+    """Configuration class for dice rolling.
+
+    This class holds the configuration for a dice roll, including the number of dice, the number of sides on each die, and whether to drop the lowest roll.
+
+    Attributes:
+        num_dice (int): Number of dice to roll.
+        num_sides (int): Number of sides on each die.
+        drop_lowest (bool): Whether to drop the lowest roll. Defaults to False.
+
+    Example:
+        ```python
+        config = _DiceRollConfig(3, 6, drop_lowest=True)
+        ```
+    """
     def __init__(self, num_dice: int, num_sides: int, drop_lowest: bool = False) -> None:
+        """Initializes the dice roll configuration.
+
+        Args:
+            num_dice (int): Number of dice to roll.
+            num_sides (int): Number of sides on each die.
+            drop_lowest (bool): Whether to drop the lowest roll. Defaults to False.
+
+        Example:
+            ```python
+            config = _DiceRollConfig(3, 6, drop_lowest=True)
+            ```
+        """
         self.num_dice = num_dice
         self.num_sides = num_sides
         self.drop_lowest = drop_lowest
 
 class DiceRoller:
-    """Utility class for rolling dice."""
+    """Utility class for rolling dice.
+
+    This class provides methods for rolling dice, including support for dice notation (e.g., '3d6') and optional rules such as dropping the lowest roll.
+
+    Example:
+        ```python
+        result = DiceRoller.roll(3, 6)
+        print(result)
+        ```
+    """
 
     @staticmethod
     def roll(num_dice: Union[int, str], num_sides: Optional[int] = None, drop_lowest: bool = False) -> int:
@@ -29,14 +63,19 @@ class DiceRoller:
             ValueError: If num_dice or num_sides is less than 1, or if the notation is not supported.
 
         Examples:
-            >>> DiceRoller.roll(3, 6)
-            10  # Example output, actual result will vary
+            ```python
+            # Roll 3 six-sided dice
+            result = DiceRoller.roll(3, 6)
+            print(result)  # Example output: 10 (actual result will vary)
 
-            >>> DiceRoller.roll('3d6')
-            12  # Example output, actual result will vary
+            # Roll using dice notation
+            result = DiceRoller.roll('3d6')
+            print(result)  # Example output: 12 (actual result will vary)
 
-            >>> DiceRoller.roll('4d6', drop_lowest=True)
-            14  # Example output, actual result will vary
+            # Roll with the lowest die dropped
+            result = DiceRoller.roll('4d6', drop_lowest=True)
+            print(result)  # Example output: 14 (actual result will vary)
+            ```
         """
         if isinstance(num_dice, str):
             config = DiceRoller._parse_dice_notation(num_dice, drop_lowest)
@@ -55,7 +94,7 @@ class DiceRoller:
         """Parses a dice notation string and returns a configuration object.
 
         Args:
-            dice_notation (str): String describing the dice roll format.
+            dice_notation (str): String describing the dice roll format (e.g., '3d6').
             drop_lowest (bool): Whether to drop the lowest roll. Defaults to False.
 
         Returns:
@@ -63,6 +102,14 @@ class DiceRoller:
 
         Raises:
             ValueError: If the notation is not in the supported format.
+
+        Example:
+            ```python
+            config = DiceRoller._parse_dice_notation('3d6', drop_lowest=True)
+            print(config.num_dice)  # Output: 3
+            print(config.num_sides)  # Output: 6
+            print(config.drop_lowest)  # Output: True
+            ```
         """
         try:
             num_dice, num_sides = map(int, dice_notation.split('d'))
