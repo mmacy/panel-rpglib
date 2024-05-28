@@ -1,4 +1,21 @@
 # src/arbrynnica/utils/dice_roller.py
+"""This module defines the classes and functions related to dice rolling in the RPG.
+
+Dice rolling is a fundamental mechanic in many RPGs, used to determine the outcome of various actions and events. This module provides utility functions for rolling dice, including support for standard dice notation and optional rules such as dropping the lowest roll.
+
+Typical usage example:
+
+    ```python
+    result = DiceRoller.roll(3, 6)
+    print(result)
+
+    result = DiceRoller.roll('3d6')
+    print(result)
+
+    result = DiceRoller.roll('4d6', drop_lowest=True)
+    print(result)
+    ```
+"""
 
 import random
 from typing import Optional, Union
@@ -16,6 +33,8 @@ class _DiceRollConfig:
     Example:
         ```python
         config = _DiceRollConfig(3, 6, drop_lowest=True)
+        result = DiceRoller.roll(config.num_dice, config.num_sides, config.drop_lowest)
+        print(result)  # Example output: 14 (actual result will vary)
         ```
     """
     def __init__(self, num_dice: int, num_sides: int, drop_lowest: bool = False) -> None:
@@ -29,6 +48,8 @@ class _DiceRollConfig:
         Example:
             ```python
             config = _DiceRollConfig(3, 6, drop_lowest=True)
+            result = DiceRoller.roll(config.num_dice, config.num_sides, config.drop_lowest)
+            print(result)  # Example output: 14 (actual result will vary)
             ```
         """
         self.num_dice = num_dice
@@ -106,9 +127,8 @@ class DiceRoller:
         Example:
             ```python
             config = DiceRoller._parse_dice_notation('3d6', drop_lowest=True)
-            print(config.num_dice)  # Output: 3
-            print(config.num_sides)  # Output: 6
-            print(config.drop_lowest)  # Output: True
+            result = DiceRoller.roll(config.num_dice, config.num_sides, config.drop_lowest)
+            print(result)  # Example output: 14 (actual result will vary)
             ```
         """
         try:
