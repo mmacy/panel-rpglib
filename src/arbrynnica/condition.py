@@ -1,17 +1,20 @@
 # src/arbrynnica/condition.py
 """This module defines the classes and functions related to conditions in the RPG.
 
-Conditions represent various states that can affect a character's abilities, actions, and overall gameplay. Conditions can be beneficial or detrimental and have a specific duration.
+Conditions represent various statuses that can affect a character, such as being poisoned or stunned. This module provides the structure and behavior for managing these conditions.
 
 Typical usage example:
 
-  condition = Condition("Poisoned", "Reduces health over time", 3)
+    ```python
+    condition = Condition("Poisoned", "Reduces health over time", 3)
+    character.apply_condition(condition)
+    ```
 """
 
 class Condition:
     """Represents a condition in the RPG.
 
-    Conditions affect a character's abilities, actions, and overall gameplay. They can be applied to or removed from characters and have a specific duration.
+    Conditions affect characters by altering their abilities or statuses for a specified duration.
 
     Attributes:
         name (str): The name of the condition.
@@ -26,6 +29,7 @@ class Condition:
 
     Example:
         ```python
+        # Creating a condition
         poisoned_condition = Condition("Poisoned", "Reduces health over time", 3)
         character.add_condition(poisoned_condition)
         poisoned_condition.apply(character)
@@ -51,14 +55,15 @@ class Condition:
     def apply(self, character: 'Character') -> None:
         """Applies the condition to the character.
 
-        Call this method to impose the condition's effects on the character. This method should be used in conjunction with character state updates.
+        Call this method to apply the condition to the character, altering their status or abilities.
 
         Args:
             character (Character): The character to apply the condition to.
 
         Example:
             ```python
-            poisoned_condition.apply(character)
+            character.apply_condition(poisoned_condition)
+            character.update_attributes()
             ```
         """
         # Example implementation for applying condition effects
@@ -75,7 +80,8 @@ class Condition:
 
         Example:
             ```python
-            poisoned_condition.remove(character)
+            character.remove_condition(poisoned_condition)
+            character.update_attributes()
             ```
         """
         # Example implementation for removing condition effects
@@ -92,6 +98,7 @@ class Condition:
             poisoned_condition.tick()
             if poisoned_condition.duration <= 0:
                 character.remove_condition(poisoned_condition)
+            character.update_attributes()
             ```
         """
         self.duration -= 1

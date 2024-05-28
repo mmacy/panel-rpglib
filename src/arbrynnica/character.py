@@ -56,6 +56,11 @@ class CharacterClass:
             spells (List[Spell]): The spells available to the class.
             equipment (List[Item]): The equipment available to the class.
             skills (List[str]): The skills available to the class.
+
+        Example:
+            ```python
+            fighter_class = CharacterClass("Fighter", 10, ["strength"], [], [], ["melee combat"])
+            ```
         """
         self.name = name
         self.hit_die = hit_die
@@ -131,6 +136,11 @@ class Abilities:
             dexterity (int): The dexterity ability score.
             constitution (int): The constitution ability score.
             charisma (int): The charisma ability score.
+
+        Example:
+            ```python
+            abilities = Abilities(15, 10, 10, 12, 14, 8)
+            ```
         """
         self.strength = strength
         self.intelligence = intelligence
@@ -215,7 +225,7 @@ class Character:
         # Creating a character involves setting up abilities, alignment, and character class
         abilities = Abilities(15, 10, 10, 12, 14, 8)
         alignment = Alignment("Lawful")
-        char_class = CharacterClass("Fighter", 10, ["strength"], [], [], [])
+        char_class = CharacterClass("Fighter", 10, ["strength"], [], [], ["melee combat"])
         character = Character("Arthas", char_class, abilities, alignment)
         ```
     """
@@ -227,6 +237,14 @@ class Character:
             char_class (CharacterClass): The character's class.
             abilities (Abilities): The character's abilities.
             alignment (Alignment): The character's alignment.
+
+        Example:
+            ```python
+            abilities = Abilities(15, 10, 10, 12, 14, 8)
+            alignment = Alignment("Lawful")
+            char_class = CharacterClass("Fighter", 10, ["strength"], [], [], ["melee combat"])
+            character = Character("Arthas", char_class, abilities, alignment)
+            ```
         """
         self.name = name
         self.char_class = char_class
