@@ -14,6 +14,7 @@ Typical usage example:
 
 from typing import List, Dict
 
+
 class Item:
     """Represents an item in the RPG.
 
@@ -28,6 +29,7 @@ class Item:
         sword = Item("Sword", "weapon", 10)
         ```
     """
+
     def __init__(self, name: str, item_type: str, value: int) -> None:
         """Initializes an item.
 
@@ -45,6 +47,7 @@ class Item:
         self.item_type = item_type
         self.value = value
 
+
 class Inventory:
     """Represents an inventory for a character.
 
@@ -61,6 +64,7 @@ class Inventory:
         inventory.add_item(sword)
         ```
     """
+
     def __init__(self) -> None:
         """Initializes an empty inventory.
 

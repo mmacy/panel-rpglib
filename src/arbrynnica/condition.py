@@ -11,6 +11,7 @@ Typical usage example:
     ```
 """
 
+
 class Condition:
     """Represents a condition in the RPG.
 
@@ -35,6 +36,7 @@ class Condition:
         poisoned_condition.apply(character)
         ```
     """
+
     def __init__(self, name: str, description: str, duration: int) -> None:
         """Initializes a condition.
 
@@ -52,7 +54,7 @@ class Condition:
         self.description = description
         self.duration = duration
 
-    def apply(self, character: 'Character') -> None:
+    def apply(self, character: "Character") -> None:
         """Applies the condition to the character.
 
         Call this method to apply the condition to the character, altering their status or abilities.
@@ -70,7 +72,7 @@ class Condition:
         if self.name == "Poisoned":
             character.hit_points -= 1  # Example effect: Reduce health by 1
 
-    def remove(self, character: 'Character') -> None:
+    def remove(self, character: "Character") -> None:
         """Removes the condition from the character.
 
         Call this method to remove the condition's effects from the character. This method should be used to revert any changes made by the condition.

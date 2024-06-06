@@ -10,6 +10,7 @@ Typical usage example:
     ```
 """
 
+
 class Modifier:
     """Represents a modifier in the RPG.
 
@@ -28,6 +29,7 @@ class Modifier:
         strength_modifier = Modifier("Strength", 2, "flat", "global")
         ```
     """
+
     def __init__(self, name: str, value: int, type: str, scope: str, duration: int = 0) -> None:
         """Initializes a modifier.
 
@@ -49,7 +51,7 @@ class Modifier:
         self.scope = scope
         self.duration = duration
 
-    def apply_effect(self, character: 'Character') -> None:
+    def apply_effect(self, character: "Character") -> None:
         """Applies the effect of the modifier to the character.
 
         Call this method to apply the modifier's effect to the character's attributes or abilities.
@@ -65,7 +67,7 @@ class Modifier:
         """
         pass  # Implementation for applying effect
 
-    def remove_effect(self, character: 'Character') -> None:
+    def remove_effect(self, character: "Character") -> None:
         """Removes the effect of the modifier from the character.
 
         Call this method to remove the modifier's effect from the character's attributes or abilities.
@@ -81,7 +83,7 @@ class Modifier:
         """
         pass  # Implementation for removing effect
 
-    def is_active(self, character: 'Character') -> bool:
+    def is_active(self, character: "Character") -> bool:
         """Checks if the modifier is active on the character.
 
         Call this method to check if the modifier is still active on the character.

@@ -19,6 +19,7 @@ from arbrynnica.spell import Spell
 from arbrynnica.modifier import Modifier
 from arbrynnica.condition import Condition
 
+
 class CharacterClass:
     """Represents a character class in the RPG.
 
@@ -46,7 +47,16 @@ class CharacterClass:
         )
         ```
     """
-    def __init__(self, name: str, hit_die: int, prime_requisites: List[str], spells: List[Spell], equipment: List[Item], skills: List[str]) -> None:
+
+    def __init__(
+        self,
+        name: str,
+        hit_die: int,
+        prime_requisites: List[str],
+        spells: List[Spell],
+        equipment: List[Item],
+        skills: List[str],
+    ) -> None:
         """Initializes a character class.
 
         Args:
@@ -69,7 +79,7 @@ class CharacterClass:
         self.equipment = equipment
         self.skills = skills
 
-    def level_up(self, character: 'Character') -> None:
+    def level_up(self, character: "Character") -> None:
         """Levels up the character.
 
         Call this method when the character has gained enough experience points to reach a new level. This will increase their hit points and potentially grant new abilities or spells.
@@ -87,7 +97,7 @@ class CharacterClass:
         """
         pass  # Implementation for leveling up
 
-    def apply_class_specific_bonuses(self, character: 'Character') -> None:
+    def apply_class_specific_bonuses(self, character: "Character") -> None:
         """Applies class-specific bonuses to the character.
 
         Call this method to apply bonuses specific to the character's class, such as bonus spells or special abilities. This should be done after leveling up or when class-specific conditions are met.
@@ -105,6 +115,7 @@ class CharacterClass:
             ```
         """
         pass  # Implementation for class-specific bonuses
+
 
 class Abilities:
     """Represents a character's abilities, such as strength and intelligence.
@@ -124,7 +135,10 @@ class Abilities:
         abilities = Abilities(15, 10, 10, 12, 14, 8)
         ```
     """
-    def __init__(self, strength: int, intelligence: int, wisdom: int, dexterity: int, constitution: int, charisma: int) -> None:
+
+    def __init__(
+        self, strength: int, intelligence: int, wisdom: int, dexterity: int, constitution: int, charisma: int
+    ) -> None:
         """Initializes a character's abilities with the given scores.
 
         Ability scores typically range from 3 to 18, as determined by rolling 3d6 for each ability, according to the game mechanics.
@@ -181,6 +195,7 @@ class Abilities:
         """
         pass
 
+
 class Alignment:
     """Represents a character's alignment.
 
@@ -194,6 +209,7 @@ class Alignment:
         alignment = Alignment("Lawful")
         ```
     """
+
     def __init__(self, type: str) -> None:
         """Initializes a character's alignment.
 
@@ -201,6 +217,7 @@ class Alignment:
             type (str): The alignment of the character. Options: 'Lawful', 'Neutral', 'Chaotic'.
         """
         self.type = type
+
 
 class Character:
     """Represents a character in the RPG.
@@ -229,6 +246,7 @@ class Character:
         character = Character("Arthas", char_class, abilities, alignment)
         ```
     """
+
     def __init__(self, name: str, char_class: CharacterClass, abilities: Abilities, alignment: Alignment) -> None:
         """Initializes a player character with the given name, class, abilities, and alignment.
 
@@ -271,9 +289,9 @@ class Character:
             character.hit_points = character.calculate_hit_points()
             ```
         """
-        base_hp = self.char_class.hit_die + self.get_ability_modifier('constitution')
-        active_modifiers = [mod for mod in self.modifiers if mod.is_active(self) and mod.scope == 'global']
-        return base_hp + sum(mod.value for mod in active_modifiers if mod.name == 'hit_points')
+        base_hp = self.char_class.hit_die + self.get_ability_modifier("constitution")
+        active_modifiers = [mod for mod in self.modifiers if mod.is_active(self) and mod.scope == "global"]
+        return base_hp + sum(mod.value for mod in active_modifiers if mod.name == "hit_points")
 
     def roll_initiative(self) -> int:
         """Rolls for initiative based on the character's dexterity and active modifiers.
@@ -305,9 +323,11 @@ class Character:
             ```
         """
         base_modifier = (getattr(self.abilities, ability) - 10) // 2
-        active_modifiers = [mod for mod in self.modifiers if mod.is_active(self) and mod.scope in ('global', 'combat')]
-        flat_modifiers = sum(mod.value for mod in active_modifiers if mod.name == ability and mod.type == 'flat')
-        percentage_modifiers = sum(mod.value for mod in active_modifiers if mod.name == ability and mod.type == 'percentage')
+        active_modifiers = [mod for mod in self.modifiers if mod.is_active(self) and mod.scope in ("global", "combat")]
+        flat_modifiers = sum(mod.value for mod in active_modifiers if mod.name == ability and mod.type == "flat")
+        percentage_modifiers = sum(
+            mod.value for mod in active_modifiers if mod.name == ability and mod.type == "percentage"
+        )
         return self.apply_percentage_modifier(base_modifier + flat_modifiers, percentage_modifiers)
 
     @staticmethod
@@ -447,7 +467,7 @@ class Character:
         """
         self.char_class.spells.append(spell)
 
-    def cast_spell(self, spell: Spell, target: 'Character') -> None:
+    def cast_spell(self, spell: Spell, target: "Character") -> None:
         """Casts a spell on a target character.
 
         Call this method to cast a spell, targeting another character.
