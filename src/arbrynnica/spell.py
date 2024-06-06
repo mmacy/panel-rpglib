@@ -19,6 +19,7 @@ Typical usage example:
 
 from typing import Callable
 
+
 class Spell:
     """Represents a spell in the RPG.
 
@@ -39,6 +40,7 @@ class Spell:
         fireball = Spell("Fireball", 3, fireball_effect)
         ```
     """
+
     def __init__(self, name: str, level: int, effect: Callable) -> None:
         """Initializes a spell.
 
@@ -59,7 +61,7 @@ class Spell:
         self.level = level
         self.effect = effect
 
-    def cast(self, caster: 'Character', target: 'Character') -> None:
+    def cast(self, caster: "Character", target: "Character") -> None:
         """Casts the spell on a target character.
 
         Call this method to cast the spell from the caster to the target, applying the spell's effect.
